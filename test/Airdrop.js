@@ -5,6 +5,7 @@ import addresses from "../addresses.json" assert { type: "json" };
 import ethers from "ethers";
 import { createContractConnect } from "./utils.js";
 import { getProof } from "./utils.js";
+import { create } from "ts-node";
 
 const whiteListedUserAddress = addresses.whitelist[0];
 // declar a non-whitelisted address
@@ -82,7 +83,7 @@ describe("Airdrop", function () {
     );
     proof = tree.getHexProof(keccak256(nonWhitelistedAddress));
     await expect(contractConnected.claim(proof)).to.be.revertedWith(
-      "Not WiteListed"
+      "NOT WITELISTED"
     );
     expect(await ming.balanceOf(nonWhitelistedAddress)).to.equal(
       ethers.utils.parseEther("0")
@@ -97,7 +98,7 @@ describe("Airdrop", function () {
     const proof = tree.getHexProof(keccak256(whiteListedUserAddress));
     await contractConnected.claim(proof);
     await expect(contractConnected.claim(proof)).to.revertedWith(
-      "Already claimed"
+      "ALREADY CLAIMED"
     );
   });
 
@@ -116,7 +117,7 @@ describe("Airdrop", function () {
     contractConnected = await createContractConnect(airdrop, user_address);
     proof = await getProof(tree, user_address);
     await expect(contractConnected.claim(proof)).to.revertedWith(
-      "Exceeds maximum supply"
+      "EXCEEDS MAXIMUM SUPPLY"
     );
   });
 });

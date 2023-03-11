@@ -3,7 +3,6 @@ pragma solidity ^0.8.18;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import "hardhat/console.sol";
 
 contract MING is ERC20 {
 
@@ -17,18 +16,22 @@ contract MING is ERC20 {
 
     // Check for eligibility
     modifier isWhiteListed(address user, bytes32[] calldata proof) {
-        require(MerkleProof.verifyCalldata(proof, root, keccak256(abi.encodePacked(user))), "Not WiteListed");
+        require(MerkleProof.verifyCalldata(proof, root, keccak256(abi.encodePacked(user))), "NOT WITELISTED");
         _;
     }
 
 
     function claim(address user, bytes32[] calldata proof) public isWhiteListed(user, proof){
         // Preventing reentry
-        require(claimed[user] == false, "Already claimed");
-        // check the totalSupply 
-        require(totalSupply() + CLAIM_NUM <= 1000000 ether, "Exceeds maximum supply");
+        require(claimed[user] == false, "ALREADY CLAIMED");
+        // Check the totalSupply 
+        require(totalSupply() + CLAIM_NUM <= 1000000 ether, "EXCEEDS MAXIMUM SUPPLY");
         claimed[user] = true;
         _mint(user, CLAIM_NUM);
         emit Claim(user, CLAIM_NUM);
     }
+
+    receive() external payable {}
+
+    fallback() external payable {}
 }
