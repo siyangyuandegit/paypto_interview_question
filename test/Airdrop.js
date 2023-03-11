@@ -30,16 +30,16 @@ describe("Airdrop", function () {
 
   beforeEach(async function () {
     // get the factory to deploy contract
-    const MING = await hre.ethers.getContractFactory("MING");
+    const Ming = await hre.ethers.getContractFactory("Ming");
     const Airdrop = await hre.ethers.getContractFactory("Airdrop");
 
     // deploy the contract
-    ming = await MING.deploy(root, "MING", "MING");
+    ming = await Ming.deploy(root, "Ming", "Ming");
     airdrop = await Airdrop.deploy(ming.address);
   });
 
   it("Should set the right implementation", async function () {
-    console.log("MING has deployed at: ", ming.address);
+    console.log("Ming has deployed at: ", ming.address);
     console.log("Airdrop has deployed at: ", airdrop.address);
     expect(await airdrop.implementation()).to.equal(ming.address);
   });

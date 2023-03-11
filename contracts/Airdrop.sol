@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-interface MING_ {
-    function claim(address, bytes32[] calldata) external;
-}
-
 contract Airdrop {
     address public implementation;
 
@@ -13,12 +9,7 @@ contract Airdrop {
     }
 
     function claim(bytes32[] calldata proof) public {
-        // try MING_(implementation).claim(msg.sender, proof) {}
-        // catch Error(string memory reason) {
-        //     revert(reason);
-        // } catch (bytes memory returnData) {}
-
-        // use assembly to save
+        // use assembly to save gas
         (bool success, bytes memory data) =
             implementation.call(abi.encodeWithSignature("claim(address,bytes32[])", msg.sender, proof));
         if(!success){

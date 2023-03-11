@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-contract MING is ERC20 {
+contract Ming is ERC20 {
 
     uint256 constant CLAIM_NUM = 10000 ether;
     bytes32 public root;
