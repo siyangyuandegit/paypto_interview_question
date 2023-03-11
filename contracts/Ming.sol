@@ -9,7 +9,6 @@ contract MING is ERC20 {
 
     uint256 constant CLAIM_NUM = 10000 ether;
     bytes32 public root;
-    bytes20[] public historyOwner;
     mapping(address => bool) private claimed;
     event Claim(address indexed to, uint256 value);
     constructor(bytes32 root_, string memory name_, string memory symbol_) ERC20(name_, symbol_){
